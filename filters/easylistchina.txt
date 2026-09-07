@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Checksum: wqiwPY19f7O2wGoHEFRUPw
-! Version: 202609050712
+! Checksum: xtQj9dsTBmlIiegBltMkmw
+! Version: 202609070742
 ! Title: EasyList China
-! Last modified: 05 Sep 2026 07:12 UTC
+! Last modified: 07 Sep 2026 07:42 UTC
 ! Expires: 1 days (update frequency)
 ! Homepage: https://github.com/easylist/easylistchina/
 !
@@ -1755,6 +1755,20 @@ newduba.cn###jq_youxi
 ||cnzz.trafficmanager.net^
 ||cupfox.app^$third-party
 !
+||wewubuwgz.com^
+||rwjfbjhktsftpe.com^
+||8lj6g9gz4.com^
+||d3q5v0ai8.com^
+||743w3z7pv.com^
+||heky0uxng.com^
+||zig1te84n.com^
+||dm03ef9xf1.com^
+||ltnkpzlinptlde.com^
+||y84shrg6ui.com^
+||cczo7vq6dl.com^
+||jwxggyivum.icu^
+||ead2qybt9e.com^
+||3t4j5adg9x.com^
 ||jxdbvmmau.com^
 ||e9zrvermi.com^
 ||nqrsdhemqmfdry.com^
@@ -1762,6 +1776,9 @@ newduba.cn###jq_youxi
 ||jiz4pa4hu.com^
 ||ab1bhie0c.com^
 ||thuk8hg48.com^
+||slz99md2o.com^
+||5enhjla7z.com^
+||rwilwcovop.icu^
 ||mudguard68.com^
 ||pavxtxikkjrdfy.com^
 ||cq5nsp7kya.com^
@@ -11255,9 +11272,10 @@ meijutt.*/js/pcjs/
 ||ab3de9.gamersky.com^
 ||teacher.php.cn/php/
 ||right.com.cn/forum/data/attachment/common/template/boardimg_20260602yahb3wsd.
-||ping0.cc/images/fx/*.gif
+||ping0.cc/images/gx/*.gif
 !------------------------Specific element hiding rules------------------------!
-ping0.cc#?#div:-abp-has(>a>.tipbd)
+ping0.cc##.xeeles
+ping0.cc###adjright
 169bbs.com##.a_f
 kanju.ai##.movie-player-info-ad-grid
 kanju.ai##.movie-player-info-ad-heading

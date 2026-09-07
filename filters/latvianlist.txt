@@ -1,8 +1,8 @@
 [Adblock Plus 2.0]
-! Checksum: aDosr2Md3o7xIWvVy5MYig
-! Version: 202609050712
+! Checksum: GEI0++LDWVzUyG1JfB4NGQ
+! Version: 202609070742
 ! Title: Latvian List
-! Last modified: 05 Sep 2026 07:12 UTC
+! Last modified: 07 Sep 2026 07:42 UTC
 ! Expires: 1 days (update frequency)
 ! Homepage: https://forums.lanik.us/viewforum.php?f=99-latvian-list
 !
