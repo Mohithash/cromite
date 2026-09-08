@@ -1,0 +1,35 @@
+From: Mohithash <shahjespuri@gmail.com>
+Date: Tue, 8 Sep 2026 16:01:37 +0000
+Subject: WebView: clear the Vulkan provider pointer before releasing
+ it
+
+RenderThreadManager keeps the raw pointer InitVk gave it for as long as
+the functor lives, but OnContextDestroyed releases the provider first
+and the functor is destroyed later, so the pointer dangles in between.
+Nothing reads it in that window, which is why it went unnoticed; with
+the dangling raw_ptr detector on it kills the host app every time a
+page's renderer is replaced under a Vulkan HWUI. Hand the manager a
+null pointer before the provider goes away.
+
+License: GPL-2.0-or-later - https://spdx.org/licenses/GPL-2.0-or-later.html
+---
+ android_webview/browser/gfx/aw_draw_fn_impl.cc | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/android_webview/browser/gfx/aw_draw_fn_impl.cc b/android_webview/browser/gfx/aw_draw_fn_impl.cc
+index c4a8c64ff1..8b6803cf9c 100644
+--- a/android_webview/browser/gfx/aw_draw_fn_impl.cc
++++ b/android_webview/browser/gfx/aw_draw_fn_impl.cc
+@@ -269,6 +269,12 @@ void AwDrawFnImpl::OnContextDestroyed() {
+   }
+ 
+   scoped_secondary_cb_draw_.reset();
++  // InitVk handed the render thread manager a non-owning pointer to the
++  // provider; take it back before the provider is released, or it dangles
++  // until the functor is destroyed.
++  if (vulkan_context_provider_) {
++    render_thread_manager_.SetVulkanContextProviderOnRT(nullptr);
++  }
+   vulkan_context_provider_.reset();
+ }
+ 
