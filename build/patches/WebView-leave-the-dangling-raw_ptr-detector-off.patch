@@ -1,0 +1,38 @@
+From: Mohithash <shahjespuri@gmail.com>
+Date: Tue, 8 Sep 2026 11:19:37 +0000
+Subject: WebView: leave the dangling raw_ptr detector off
+
+Supporting-Dangling-Ptr-Detection-via-BackupRefPtr turns the detector
+on by default for every target, and its runtime mode is to crash. In
+the browser that is the user's choice through a setting. In WebView the
+crash lands in the host application: on Android 17 the Vulkan draw
+functor frees an object in one RenderThread callback and releases a
+raw_ptr to it in the next whenever a page's renderer is replaced, so
+any app that navigates dies within seconds. Upstream WebView carries
+the same code and never enables the detector; disable it for WebView
+alongside the other process-global allocator features.
+
+License: GPL-2.0-or-later - https://spdx.org/licenses/GPL-2.0-or-later.html
+---
+ android_webview/browser/aw_field_trials.cc | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/android_webview/browser/aw_field_trials.cc b/android_webview/browser/aw_field_trials.cc
+index 274b0ec..97e18a3 100644
+--- a/android_webview/browser/aw_field_trials.cc
++++ b/android_webview/browser/aw_field_trials.cc
+@@ -261,6 +261,14 @@ void AwFieldTrials::RegisterFeatureOverrides(base::FeatureList* feature_list) {
+   aw_feature_overrides.DisableFeature(
+       base::features::kPartitionAllocMemoryTagging);
+ 
++  // Cromite compiles the dangling raw_ptr detector in and lets a browser
++  // setting decide at runtime, defaulting to crashing the process. WebView
++  // runs inside the host application's process, which has no way to opt out
++  // and no interest in a browser development aid, and upstream WebView never
++  // enables it. Keep it off like the other process-global allocator features.
++  aw_feature_overrides.DisableFeature(
++      base::features::kPartitionAllocDanglingPtr);
++
+   // Disable Topics on WebView.
+   aw_feature_overrides.DisableFeature(network::features::kBrowsingTopics);
+ 
